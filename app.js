@@ -26,7 +26,7 @@ button.addEventListener("click", function () {
         numbers[i].style.color = "black";
       }
       if (winCondition == numbers.length) {
-        console.log("Game Over");
+        document.getElementById("demo").innerHTML="<h1>Congratulations <br/> You Win </h1>";
       }
     }
   }

@@ -1,26 +1,34 @@
 var gameArea = document.querySelector(".game");
 var button = document.querySelector("button");
-//var correctnum = document.getElementById("correctnum");
+const message = document.querySelector(".message");
 
 let gamePlay = false;
+let score = 0;
 button.addEventListener("click", function () {
   if (!gamePlay) {
     gamePlay = true;
+    score = 0;
     maker();
     button.innerHTML = "check combo";
   } else {
     const numbers = document.querySelectorAll(".numb");
+    score++;
+    message.innerHTML = "Guesses " + score;
+    let winCondition = 0;
     for (let i = 0; i < numbers.length; i++) {
       if (numbers[i].value == numbers[i].correct) {
-        console.log("correct");
+        numbers[i].style.backgroundColor = "green";
+        numbers[i].style.color = "white";
+        winCondition++;
       } else {
-        console.log("Wrong");
+        let color = numbers[i].value < numbers[i].correct ? "blue" : "red";
+        numbers[i].style.backgroundColor = color;
+        numbers[i].style.color = "black";
+      }
+      if (winCondition == numbers.length) {
+        console.log("Game Over");
       }
     }
-
-   /* for (let y = 0; y < numbers.length; y++) {
-      correctnum.innerHTML = numbers[y].correct + "/";
-    }*/
   }
 });
 
@@ -33,7 +41,7 @@ function maker() {
     el.style.width = "50px";
     gameArea.appendChild(el);
     el.correct = Math.floor(Math.random() * 10);
-     console.log(el.correct);
+    console.log(el.correct);
     el.value = 0;
     el.size = 1;
     el.classList.add("numb");
